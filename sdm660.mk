@@ -140,10 +140,6 @@ PRODUCT_PACKAGES += \
     AntHalService \
     com.dsi.ant.antradio_library
 
-# ANT Permission
-PRODUCT_COPY_FILES += \
-    external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.dsi.ant.antradio_library.xml
-
 # AuthSecret
 PRODUCT_PACKAGES += \
     android.hardware.authsecret@1.0-service
@@ -167,6 +163,10 @@ PRODUCT_PACKAGES += \
     libldacBT_dec \
     libsndmonitor \
     vendor.qti.hardware.bluetooth_audio@2.0.vendor
+
+# QTI Bluetooth
+include vendor/qcom/opensource/commonsys-intf/bluetooth/bt-commonsys-intf-board.mk
+$(call inherit-product, vendor/qcom/opensource/commonsys-intf/bluetooth/bt-system-opensource-product.mk)
 
 # Boot animation
 TARGET_BOOTANIMATION_SIZE := 1080p
@@ -387,9 +387,7 @@ PRODUCT_PACKAGES += \
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(COMMON_PATH)/overlay \
-    $(COMMON_PATH)/overlay-ssos \
-    $(COMMON_PATH)/overlay-lineage
+    $(COMMON_PATH)/overlay
 
 # RRO configuration
 TARGET_USES_RRO := true
@@ -542,7 +540,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     hardware/google/interfaces \
-    hardware/google/pixel
+    hardware/google/pixel \
+    hardware/qcom-caf/msm8998/display \
+    hardware/qcom-caf/msm8998/media \
+    vendor/qcom/opensource/audio-hal/primary-hal
 
 # Tetheroffload
 PRODUCT_PACKAGES += \
